@@ -25,11 +25,15 @@ public class PostService {
         String startDate = "2024-06-01";
 
         if(site.equals(keywordRepository.getSites().get(0))) {
-            return fastApiClient.getPost(keyword, startDate);
+            return fastApiClient.getPost(0, keyword, startDate);
+        } if (site.equals(keywordRepository.getSites().get(2))) {
+            return fastApiClient.getPost(2, keyword, startDate);
         } else {
             throw new CustomException(ErrorCode.INVALID_FORM_DATA);
         }
 
     }
+
+
 
 }
