@@ -22,9 +22,9 @@ public class KeywordService {
         return keywordRepository.getSites();
     }
 
-    public void addKeyword(List<String> sites, String keyword, LocalDate date) {
-        if (sites != null && !sites.isEmpty() && keyword != null && !keyword.isEmpty()) {
-            keywordRepository.addKeyword(new KeywordDto(sites, keyword, date));
+    public void addKeyword(String site, String keyword, LocalDate date) {
+        if (site != null && !site.isEmpty() && keyword != null && !keyword.isEmpty()) {
+            keywordRepository.addKeyword(new KeywordDto(site, keyword, date));
         }
     }
 

@@ -43,25 +43,21 @@ public class KeywordController {
 
     @PostMapping
     public ResponseEntity<Void> addKeyword(@RequestBody Map<String, Object> requestBody) {
-        List<Integer> siteIndex = (List<Integer>) requestBody.get("siteIndex");
+        Integer siteIndex = (Integer) requestBody.get("siteIndex");
         String keyword = (String) requestBody.get("keyword");
         String date = (String) requestBody.get("date");
 
         List<String> sites = keyService.getSites();
-        List<String> selectedSites = siteIndex.stream()
-                .map(index -> {
-                    if (index >= 0 && index < sites.size()) {
-                        return sites.get(index);
-                    } else {
-                        throw new IllegalArgumentException("Invalid site index: " + index);
-                    }
-                })
-                .collect(Collectors.toList());
+        if (siteIndex != null && siteIndex >= 0 && siteIndex < sites.size()) {
+            String selectedSite = sites.get(siteIndex);
 
-        LocalDate parsedDate = LocalDate.parse(date);
-        keyService.addKeyword(selectedSites, keyword, parsedDate);
+            LocalDate parsedDate = LocalDate.parse(date);
+            keyService.addKeyword(selectedSite, keyword, parsedDate);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } else {
+            throw new IllegalArgumentException("Invalid site index: " + siteIndex);
+        }
     }
 
     @DeleteMapping("/{id}")
