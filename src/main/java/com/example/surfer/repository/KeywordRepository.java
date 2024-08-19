@@ -1,17 +1,21 @@
 package com.example.surfer.repository;
 
 import com.example.surfer.dto.KeywordDto;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class KeyRepository {
+@RequiredArgsConstructor
+@Repository
+@Getter
+public class KeywordRepository {
 
-    private static KeyRepository instance;
     private final List<KeywordDto> keywords = new ArrayList<>();
     private final List<String> sites = Arrays.asList(
             "동덕 공지사항",
@@ -20,18 +24,7 @@ public class KeyRepository {
             "사이트4"
     );
 
-    private KeyRepository() {}
 
-    public static synchronized KeyRepository getInstance() {
-        if (instance == null) {
-            instance = new KeyRepository();
-        }
-        return instance;
-    }
-
-    public List<String> getSites() {
-        return sites;
-    }
 
     public void addKeyword(KeywordDto keyword) {
         keywords.add(keyword);

@@ -1,24 +1,27 @@
 package com.example.surfer.controller;
 
 import com.example.surfer.dto.KeywordDto;
-import com.example.surfer.service.KeyService;
+import com.example.surfer.service.KeywordService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/keywords")
-public class KeyController {
+public class KeywordController {
 
-    private final KeyService keyService = KeyService.getInstance();
+    @Autowired
+    private final KeywordService keyService;
 
     @GetMapping("/sites")
     public ResponseEntity<List<String>> getSites() {
