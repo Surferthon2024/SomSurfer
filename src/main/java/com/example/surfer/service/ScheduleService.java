@@ -1,12 +1,17 @@
 package com.example.surfer.service;
 
+import ch.qos.logback.core.spi.ErrorCodes;
 import com.example.surfer.dto.ScheduleDto;
+import com.example.surfer.exception.CustomException;
+import com.example.surfer.exception.ErrorCode;
 import com.example.surfer.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.surfer.exception.ErrorCode.INVALID_FORM_DATA;
 
 @Service
 public class ScheduleService {
@@ -32,8 +37,8 @@ public class ScheduleService {
                 scheduleDto = scheduleRepository.createSchedule(str[0], str[1], str[2]);
             else
                 scheduleDto = scheduleRepository.createSchedule(str[0], str[1], str[1]);
-
-            result.add(scheduleDto);
+            if(scheduleDto != null)
+                result.add(scheduleDto);
         }
 
         return result;
@@ -44,7 +49,7 @@ public class ScheduleService {
             scheduleRepository.deleteSchedule(index);
             return "Remove Success";
         }catch (Exception e){
-            return "Remove failed";
+            throw new CustomException(INVALID_FORM_DATA);
         }
 
     }

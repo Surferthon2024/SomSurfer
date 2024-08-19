@@ -25,14 +25,14 @@ public class CalendarController {
         return ResponseEntity.ok(schedules);
     }
     //일정 추가
-    @PostMapping("/create")
+    @PostMapping("/add-schedule")
     public ResponseEntity<List<ScheduleDto>> createSchedule(int index){
         List<ScheduleDto> schedules = scheduleService.createSchedules(index);
         return ResponseEntity.ok(schedules);
     }
 
     //일정 삭제
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete-schedule")
     public ResponseEntity<String> deleteSchedule(int index){
         String result = scheduleService.deleteSchedule(index);
 
