@@ -20,12 +20,6 @@ public enum ErrorCode {
     INCORRECT_VERIFICATION_CODE(HttpStatus.UNAUTHORIZED, "인증 번호가 일치하지 않습니다."),
     MISMATCH_PHONENUMBER(HttpStatus.BAD_REQUEST, "입력된 전화번호가 등록된 전화번호와 일치하지 않습니다.");
 
-    // 예시, 참고해서 필요한 에러 코드 작성하기
-//    NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 데이터입니다."),
-//    UNCORRECTABLE_DATA(HttpStatus.CONFLICT, "현재 수정할 수 없는 데이터입니다."),
-//    DUPLICATE(HttpStatus.CONFLICT,"중복된 데이터 입니다."),
-//    UPLOAD_PROFILE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "프로필 업데이트 중 오류 발생했습니다.");
-
     private final HttpStatus httpStatus;
     private final String message;
 }

@@ -30,7 +30,7 @@ public class ScheduleService {
 
         List<ScheduleDto> result = new ArrayList<>();
         for(String plan : plans){
-            String[] str = plan.split("|");
+            String[] str = plan.split("\\|");
 
             ScheduleDto scheduleDto = null;
             if(str.length > 1) {
@@ -48,10 +48,10 @@ public class ScheduleService {
         return result;
     }
 
-    public String deleteSchedule(int index){
+    public boolean deleteSchedule(int index){
         try{
             scheduleRepository.deleteSchedule(index);
-            return "Remove Success";
+            return true;
         }catch (Exception e){
             throw new CustomException(INVALID_FORM_DATA);
         }

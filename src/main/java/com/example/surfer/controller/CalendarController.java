@@ -1,18 +1,15 @@
-package com.example.surfer.Controller;
+package com.example.surfer.controller;
 
 import com.example.surfer.dto.ScheduleDto;
 import com.example.surfer.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/schedule")
 public class CalendarController {
     @Autowired private ScheduleService scheduleService;
@@ -33,9 +30,8 @@ public class CalendarController {
 
     //일정 삭제
     @DeleteMapping("/delete-schedule")
-    public ResponseEntity<String> deleteSchedule(int index){
-        String result = scheduleService.deleteSchedule(index);
-
+    public ResponseEntity<Boolean> deleteSchedule(int index){
+        Boolean result = scheduleService.deleteSchedule(index);
         return ResponseEntity.ok(result);
     }
 }
