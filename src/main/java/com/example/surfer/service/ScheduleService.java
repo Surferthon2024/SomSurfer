@@ -26,7 +26,7 @@ public class ScheduleService {
         //index로 본문을 알아내서 기간추출 api 호출 -> 추출결과 plans에 저장
 
         //test
-        plans.add("수강신청|2024-08-24|2024-08-26");
+        //plans.add("수강신청|2024-08-24|2024-08-26");
 
         List<ScheduleDto> result = new ArrayList<>();
         for(String plan : plans){
@@ -55,6 +55,5 @@ public class ScheduleService {
         }catch (Exception e){
             throw new CustomException(INVALID_FORM_DATA);
         }
-
     }
 }
