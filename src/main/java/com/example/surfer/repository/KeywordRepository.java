@@ -18,10 +18,9 @@ public class KeywordRepository {
 
     private final List<KeywordDto> keywords = new ArrayList<>();
     private final List<String> sites = Arrays.asList(
-            "동덕 공지사항",
+            "동덕여대 컴퓨터학과",
             "한국 장학재단",
-            "사이트3",
-            "사이트4"
+            "링커리어"
     );
 
 
