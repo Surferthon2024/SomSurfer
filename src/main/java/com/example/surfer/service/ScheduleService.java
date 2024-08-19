@@ -3,11 +3,12 @@ package com.example.surfer.service;
 import ch.qos.logback.core.spi.ErrorCodes;
 import com.example.surfer.dto.ScheduleDto;
 import com.example.surfer.exception.CustomException;
-import com.example.surfer.exception.ErrorCode;
 import com.example.surfer.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +34,14 @@ public class ScheduleService {
             String[] str = plan.split("|");
 
             ScheduleDto scheduleDto = null;
-            if(str.length > 1)
-                scheduleDto = scheduleRepository.createSchedule(str[0], str[1], str[2]);
-            else
-                scheduleDto = scheduleRepository.createSchedule(str[0], str[1], str[1]);
+            if(str.length > 1) {
+                LocalDate startD = LocalDate.parse(str[1], DateTimeFormatter.ISO_DATE);
+                LocalDate endD = LocalDate.parse(str[2], DateTimeFormatter.ISO_DATE);
+                scheduleDto = scheduleRepository.createSchedule(str[0], startD, endD);
+            }else {
+                LocalDate startD = LocalDate.parse(str[1], DateTimeFormatter.ISO_DATE);
+                scheduleDto = scheduleRepository.createSchedule(str[0], startD, startD);
+            }
             if(scheduleDto != null)
                 result.add(scheduleDto);
         }
