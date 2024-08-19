@@ -1,6 +1,5 @@
 package com.example.surfer.service;
 
-import ch.qos.logback.core.spi.ErrorCodes;
 import com.example.surfer.dto.ScheduleDto;
 import com.example.surfer.exception.CustomException;
 import com.example.surfer.repository.ScheduleRepository;
