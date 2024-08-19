@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/keywords")
+@RequestMapping("/keywords")
 public class KeywordController {
 
     @Autowired
