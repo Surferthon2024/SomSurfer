@@ -12,7 +12,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/schedule")
 public class CalendarController {
-    @Autowired private ScheduleService scheduleService;
+    @Autowired
+    private ScheduleService scheduleService;
 
     //데이터 읽어오기
     @GetMapping
@@ -23,8 +24,8 @@ public class CalendarController {
     }
     //일정 추가
     @PostMapping("/add-schedule")
-    public ResponseEntity<List<ScheduleDto>> createSchedule(int index){
-        List<ScheduleDto> schedules = scheduleService.createSchedules(index);
+    public ResponseEntity<List<ScheduleDto>> createSchedule(@RequestBody String text){
+        List<ScheduleDto> schedules = scheduleService.createSchedules(text);
         return ResponseEntity.ok(schedules);
     }
 

@@ -3,6 +3,7 @@ package com.example.surfer.service;
 import com.example.surfer.dto.ScheduleDto;
 import com.example.surfer.exception.CustomException;
 import com.example.surfer.repository.ScheduleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +14,22 @@ import java.util.List;
 
 import static com.example.surfer.exception.ErrorCode.INVALID_FORM_DATA;
 
+@RequiredArgsConstructor
 @Service
 public class ScheduleService {
-    @Autowired private ScheduleRepository scheduleRepository;
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private final FastApiClient fastApiClient;
 
     public List<ScheduleDto> getSchedules(){
         return scheduleRepository.getSchedules();
     }
 
-    public List<ScheduleDto> createSchedules(int index){
-        List<String> plans = new ArrayList<>();
-        //index로 본문을 알아내서 기간추출 api 호출 -> 추출결과 plans에 저장
+    public List<ScheduleDto> createSchedules(String text){
 
-        //test
-        plans.add("수강신청|2024-08-24|2024-08-26");
+        List<String> plans = fastApiClient.getSchedule(text);
 
         List<ScheduleDto> result = new ArrayList<>();
         for(String plan : plans){

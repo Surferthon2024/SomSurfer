@@ -20,6 +20,7 @@ public class KeywordRepository {
     private final List<String> sites = Arrays.asList(
             "동덕여대 컴퓨터학과",
             "한국 장학재단",
+            "강남대학교",
             "링커리어"
     );
 
