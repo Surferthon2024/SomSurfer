@@ -44,7 +44,7 @@ public class GoogleCalendarService {
                 .build();
 
         // Exchange authorization code for credentials
-        Credential credential = flow.loadCredential("user");  // 여기서 'user'는 식별자로 사용됩니다.
+        Credential credential = flow.loadCredential("user");  // 여기서 'user'는 식별자로 사용
         if (credential == null) {
             throw new Exception("Credential not found.");
         }
