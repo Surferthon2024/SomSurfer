@@ -44,10 +44,10 @@ public class ScheduleService {
         return result;
     }
 
-    public String deleteSchedule(int index){
+    public boolean deleteSchedule(int index){
         try{
             scheduleRepository.deleteSchedule(index);
-            return "Remove Success";
+            return true;
         }catch (Exception e){
             throw new CustomException(INVALID_FORM_DATA);
         }

@@ -1,4 +1,4 @@
-package com.example.surfer.Controller;
+package com.example.surfer.controller;
 
 import com.example.surfer.dto.ScheduleDto;
 import com.example.surfer.service.ScheduleService;
@@ -33,9 +33,8 @@ public class CalendarController {
 
     //일정 삭제
     @DeleteMapping("/delete-schedule")
-    public ResponseEntity<String> deleteSchedule(int index){
-        String result = scheduleService.deleteSchedule(index);
-
+    public ResponseEntity<Boolean> deleteSchedule(int index){
+        Boolean result = scheduleService.deleteSchedule(index);
         return ResponseEntity.ok(result);
     }
 }
