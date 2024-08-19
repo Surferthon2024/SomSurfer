@@ -30,7 +30,7 @@ public class ScheduleService {
 
         List<ScheduleDto> result = new ArrayList<>();
         for(String plan : plans){
-            String[] str = plan.split("|");
+            String[] str = plan.split("\\|");
 
             ScheduleDto scheduleDto = null;
             if(str.length > 1)
