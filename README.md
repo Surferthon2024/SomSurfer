@@ -1,1 +1,1 @@
-<img src = "https://github.com/Surferthon2024/SomSurfer/issues/12#issue-2474672824">
+<img src="https://github.com/user-attachments/assets/f7976dfb-237b-441b-8642-fff76abfd8f9">
