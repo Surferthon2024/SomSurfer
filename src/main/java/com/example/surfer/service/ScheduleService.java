@@ -74,15 +74,18 @@ public class ScheduleService {
 
                 String st = str[1].replace(" ", "");
                 String end = str[2].replace(" ", "");
+                st = st.replace(".", "-");
+                end = end.replace(".", "-");
 
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
                 LocalDate startD = LocalDate.parse(st, formatter);
                 LocalDate endD = LocalDate.parse(end, formatter);
                 scheduleDto = scheduleRepository.createSchedule(str[0], startD, endD);
             }else {
-                String st = str[1].replace(".", "-");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+                String st = str[1].replace(" ", "");
+                st = st.replace(".", "-");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
                 LocalDate startD = LocalDate.parse(st, formatter);
                 scheduleDto = scheduleRepository.createSchedule(str[0], startD, startD);
