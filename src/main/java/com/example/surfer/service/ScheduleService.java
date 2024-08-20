@@ -4,12 +4,17 @@ import com.example.surfer.dto.ScheduleDto;
 import com.example.surfer.exception.CustomException;
 import com.example.surfer.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.surfer.exception.ErrorCode.INVALID_FORM_DATA;
@@ -29,7 +34,36 @@ public class ScheduleService {
 
     public List<ScheduleDto> createSchedules(String text){
 
-        List<String> plans = fastApiClient.getSchedule(text);
+//        List<String> plans = fastApiClient.getSchedule(text);
+        List<String> plans = new ArrayList<>();
+
+        String jsonString = "{\n" +
+                "  \"events\": [\n" +
+                "    \"2024년8월 학부과정 수료대상자 및 졸업예정자 학업계속신청 마감일 | 2024.07.16 | 2024.07.16\",\n" +
+                "    \"2024년8월 졸업예정자에 대한 학사학위취득유예 신청/접수 시작 | 2024.08.01 | 2024.08.01\"\n" +
+                "  ]\n" +
+                "}";
+
+        // JSON 객체 생성
+        JSONObject jsonObject = null;
+
+        JSONArray eventsArray = null;
+
+        try {
+            jsonObject = new JSONObject(jsonString);
+
+            // "events" 배열 가져오기
+            eventsArray = jsonObject.getJSONArray("events");
+
+            // 배열 안의 각 이벤트 문자열 가져오기
+            for (int i = 0; i < eventsArray.length(); i++) {
+                plans.add(eventsArray.getString(i));
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+
 
         List<ScheduleDto> result = new ArrayList<>();
         for(String plan : plans){
@@ -37,11 +71,20 @@ public class ScheduleService {
 
             ScheduleDto scheduleDto = null;
             if(str.length > 1) {
-                LocalDate startD = LocalDate.parse(str[1], DateTimeFormatter.ISO_DATE);
-                LocalDate endD = LocalDate.parse(str[2], DateTimeFormatter.ISO_DATE);
+
+                String st = str[1].replace(" ", "");
+                String end = str[2].replace(" ", "");
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+
+                LocalDate startD = LocalDate.parse(st, formatter);
+                LocalDate endD = LocalDate.parse(end, formatter);
                 scheduleDto = scheduleRepository.createSchedule(str[0], startD, endD);
             }else {
-                LocalDate startD = LocalDate.parse(str[1], DateTimeFormatter.ISO_DATE);
+                String st = str[1].replace(".", "-");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+
+                LocalDate startD = LocalDate.parse(st, formatter);
                 scheduleDto = scheduleRepository.createSchedule(str[0], startD, startD);
             }
             if(scheduleDto != null)
